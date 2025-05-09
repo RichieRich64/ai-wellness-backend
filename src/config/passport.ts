@@ -1,8 +1,13 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+interface CustomProfile extends Profile {
+  accessToken: string;
+  refreshToken: string;
+}
 
 passport.use(
   new GoogleStrategy(
@@ -13,9 +18,15 @@ passport.use(
       scope: ["profile", "email", "https://www.googleapis.com/auth/calendar"],
     },
     (accessToken, refreshToken, profile, done) => {
-      profile.accessToken = accessToken;
-      profile.refreshToken = refreshToken;
-      return done(null, profile);
+      const customProfile: CustomProfile = {
+        ...profile,
+        accessToken,
+        refreshToken,
+      };
+
+      customProfile.accessToken = accessToken;
+      customProfile.refreshToken = refreshToken;
+      return done(null, customProfile);
     }
   )
 );

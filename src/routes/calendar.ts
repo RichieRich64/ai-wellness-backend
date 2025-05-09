@@ -7,7 +7,8 @@ router.get("/sync", async (req: Request, res: Response) => {
   const user = req.user as any;
 
   if (!user || !user.accessToken) {
-    return res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized" });
+    return;
   }
 
   try {
@@ -38,7 +39,8 @@ router.put("/update-event", async (req, res) => {
   const user = req.user as any;
 
   if (!user || !user.accessToken) {
-    return res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized" });
+    return;
   }
 
   const { id, summary, start, end } = req.body;
@@ -72,7 +74,8 @@ router.post("/event", async (req: Request, res: Response) => {
   const user = req.user as any;
 
   if (!user || !user.accessToken) {
-    return res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized" });
+    return;
   }
 
   const {
@@ -121,7 +124,8 @@ router.delete("/event/:eventId", async (req: Request, res: Response) => {
   const user = req.user as any;
 
   if (!user || !user.accessToken) {
-    return res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized" });
+    return;
   }
 
   try {

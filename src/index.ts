@@ -48,7 +48,10 @@ app.use("/auth", authRoutes);
 app.use("/calendar", calendarRoutes);
 
 app.get("/me", (req, res) => {
-  if (!req.user) return res.status(401).send("Not logged in");
+  if (!req.user) {
+    res.status(401).send("Not logged in");
+    return;
+  }
   res.send(req.user);
 });
 
