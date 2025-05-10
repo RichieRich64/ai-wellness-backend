@@ -66,18 +66,19 @@ app.all("/calendar-add-on/homepage", (req, res) => {
             },
           },
           {
-            buttons: [
-              {
-                textButton: {
-                  text: "Open App",
+            // Corrected from "buttons" to "buttonList" which contains "buttons"
+            buttonList: {
+              buttons: [
+                {
+                  text: "Open App", // For a TextButton, 'text' is a direct child
                   onClick: {
                     openLink: {
                       url: "https://ai-wellness-p9n5.onrender.com/",
                     },
                   },
                 },
-              },
-            ],
+              ],
+            },
           },
         ],
       },
@@ -85,17 +86,15 @@ app.all("/calendar-add-on/homepage", (req, res) => {
   };
 
   res.json({
-    renderActions: {
-      action: [
-        {
-          navigations: [
-            {
-              pushCard: card,
-            },
-          ],
-        },
-      ],
-    },
+    actions: [
+      {
+        navigations: [
+          {
+            pushCard: card,
+          },
+        ],
+      },
+    ],
   });
 });
 
