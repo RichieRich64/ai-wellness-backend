@@ -101,10 +101,8 @@ app.all("/calendar-add-on/homepage", (req, res) => {
                             alpha: 1,
                           },
                           onClick: {
-                            action: {
-                              functionName:
-                                "https://ai-wellness-backend-pbxw.onrender.com/calendar-add-on/handleSkipSetup",
-                              parameters: [{ key: "action", value: "skip" }],
+                            openLink: {
+                              url: "https://ai-wellness-backend-pbxw.onrender.com/calendar-add-on/handleSkipSetup",
                             },
                           },
                         },
