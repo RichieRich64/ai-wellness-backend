@@ -48,40 +48,34 @@ app.use("/auth", authRoutes);
 app.use("/calendar", calendarRoutes);
 
 // Google Add-on trigger handler
-// app.post("/calendar-add-on/homepage", (req, res) => {
-// app.get("/calendar-add-on/homepage", (req, res) => {
 app.all("/calendar-add-on/homepage", (req, res) => {
   // Respond with Google Card JSON for homepage trigger
-  const cardResponse = {
-    cards: [
+  const card = {
+    header: {
+      title: "AI Wellness Calendar Assistant",
+      subtitle: "Your personal energy-based calendar helper",
+      imageUrl: "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+      imageStyle: "AVATAR",
+    },
+    sections: [
       {
-        header: {
-          title: "AI Wellness Calendar Assistant",
-          subtitle: "Your personal energy-based calendar helper",
-          imageUrl: "https://yourdomain.com/logo.png",
-          imageStyle: "AVATAR",
-        },
-        sections: [
+        widgets: [
           {
-            widgets: [
+            textParagraph: {
+              text: "Click the button below to open AI Wellness Calendar Assistant.",
+            },
+          },
+          {
+            buttons: [
               {
-                textParagraph: {
-                  text: "Click the button below to open AI Wellness Calendar Assistant.",
-                },
-              },
-              {
-                buttons: [
-                  {
-                    textButton: {
-                      text: "Open App",
-                      onClick: {
-                        openLink: {
-                          url: "https://ai-wellness-p9n5.onrender.com/",
-                        },
-                      },
+                textButton: {
+                  text: "Open App",
+                  onClick: {
+                    openLink: {
+                      url: "https://ai-wellness-p9n5.onrender.com/",
                     },
                   },
-                ],
+                },
               },
             ],
           },
@@ -90,9 +84,66 @@ app.all("/calendar-add-on/homepage", (req, res) => {
     ],
   };
 
-  res.json(cardResponse);
-  return;
+  res.json({
+    renderActions: {
+      action: [
+        {
+          navigations: [
+            {
+              pushCard: card,
+            },
+          ],
+        },
+      ],
+    },
+  });
 });
+
+// Google Add-on trigger handler
+// app.get("/calendar-add-on/homepage", (req, res) => {
+// app.post("/calendar-add-on/homepage", (req, res) => {
+//   // Respond with Google Card JSON for homepage trigger
+//   const cardResponse = {
+//     cards: [
+//       {
+//         header: {
+//           title: "AI Wellness Calendar Assistant",
+//           subtitle: "Your personal energy-based calendar helper",
+//           imageUrl: "https://yourdomain.com/logo.png",
+//           imageStyle: "AVATAR",
+//         },
+//         sections: [
+//           {
+//             widgets: [
+//               {
+//                 textParagraph: {
+//                   text: "Click the button below to open AI Wellness Calendar Assistant.",
+//                 },
+//               },
+//               {
+//                 buttons: [
+//                   {
+//                     textButton: {
+//                       text: "Open App",
+//                       onClick: {
+//                         openLink: {
+//                           url: "https://ai-wellness-p9n5.onrender.com/",
+//                         },
+//                       },
+//                     },
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   };
+
+//   res.json(cardResponse);
+//   return;
+// });
 
 app.get("/me", (req, res) => {
   if (!req.user) {
