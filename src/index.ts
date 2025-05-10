@@ -48,9 +48,9 @@ app.use("/auth", authRoutes);
 app.use("/calendar", calendarRoutes);
 
 // Google Add-on trigger handler
-// app.all("/calendar-add-on/homepage", (req, res) => {
 // app.post("/calendar-add-on/homepage", (req, res) => {
-app.get("/calendar-add-on/homepage", (req, res) => {
+// app.get("/calendar-add-on/homepage", (req, res) => {
+app.all("/calendar-add-on/homepage", (req, res) => {
   // Respond with Google Card JSON for homepage trigger
   const cardResponse = {
     cards: [
