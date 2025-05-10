@@ -47,34 +47,77 @@ app.get("/health", async (req: Request, res: Response) => {
 app.use("/auth", authRoutes);
 app.use("/calendar", calendarRoutes);
 
+// app.all("/calendar-add-on/homepage", (req, res) => {
+//   const card = {
+//     header: {
+//       title: "AI Wellness Calendar Assistant",
+//       subtitle: "Hello World",
+//     },
+//     sections: [
+//       {
+//         widgets: [
+//           {
+//             textParagraph: {
+//               text: "Hello World",
+//             },
+//           },
+//         ],
+//       },
+//     ],
+//   };
+
+//   res.json({
+//     renderActions: {
+//       actions: [
+//         {
+//           navigations: [
+//             {
+//               pushCard: card,
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//   });
+// });
+
+// Google Add-on trigger handler
 app.all("/calendar-add-on/homepage", (req, res) => {
-  const card = {
-    header: {
-      title: "AI Wellness Calendar Assistant",
-      subtitle: "Hello World",
-    },
-    sections: [
-      {
-        widgets: [
-          {
-            textParagraph: {
-              text: "Hello World",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  // Respond with Google Card JSON for homepage trigger
 
   res.json({
-    renderActions: {
-      actions: [
+    action: {
+      navigations: [
         {
-          navigations: [
-            {
-              pushCard: card,
-            },
-          ],
+          pushCard: {
+            sections: [
+              {
+                header: "AI Wellness",
+                widgets: [
+                  {
+                    decoratedText: {
+                      text: "Your personal energy-based calendar helper",
+                      wrapText: true,
+                    },
+                  },
+                  {
+                    decoratedText: {
+                      text: "AI Wellness Calendar Assistan",
+                    },
+                  },
+                  {
+                    decoratedText: {
+                      text: "AI Wellness",
+                      icon: {
+                        iconUrl:
+                          "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
         },
       ],
     },
