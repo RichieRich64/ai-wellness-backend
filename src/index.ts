@@ -47,37 +47,18 @@ app.get("/health", async (req: Request, res: Response) => {
 app.use("/auth", authRoutes);
 app.use("/calendar", calendarRoutes);
 
-// Google Add-on trigger handler
 app.all("/calendar-add-on/homepage", (req, res) => {
-  // Respond with Google Card JSON for homepage trigger
   const card = {
     header: {
       title: "AI Wellness Calendar Assistant",
-      subtitle: "Your personal energy-based calendar helper",
-      imageUrl: "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
-      imageStyle: "AVATAR",
+      subtitle: "Hello World",
     },
     sections: [
       {
         widgets: [
           {
             textParagraph: {
-              text: "Click the button below to open AI Wellness Calendar Assistant.",
-            },
-          },
-          {
-            // Corrected from "buttons" to "buttonList" which contains "buttons"
-            buttonList: {
-              buttons: [
-                {
-                  text: "Open App", // For a TextButton, 'text' is a direct child
-                  onClick: {
-                    openLink: {
-                      url: "https://ai-wellness-p9n5.onrender.com/",
-                    },
-                  },
-                },
-              ],
+              text: "Hello World",
             },
           },
         ],
@@ -86,17 +67,70 @@ app.all("/calendar-add-on/homepage", (req, res) => {
   };
 
   res.json({
-    actions: [
-      {
-        navigations: [
-          {
-            pushCard: card,
-          },
-        ],
-      },
-    ],
+    renderActions: {
+      actions: [
+        {
+          navigations: [
+            {
+              pushCard: card,
+            },
+          ],
+        },
+      ],
+    },
   });
 });
+
+// // Google Add-on trigger handler
+// app.all("/calendar-add-on/homepage", (req, res) => {
+//   // Respond with Google Card JSON for homepage trigger
+//   const card = {
+//     header: {
+//       title: "AI Wellness Calendar Assistant",
+//       subtitle: "Your personal energy-based calendar helper",
+//       imageUrl: "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+//       imageStyle: "AVATAR",
+//     },
+//     sections: [
+//       {
+//         widgets: [
+//           {
+//             textParagraph: {
+//               text: "Click the button below to open AI Wellness Calendar Assistant.",
+//             },
+//           },
+//           {
+//             // Corrected from "buttons" to "buttonList" which contains "buttons"
+//             buttonList: {
+//               buttons: [
+//                 {
+//                   text: "Open App", // For a TextButton, 'text' is a direct child
+//                   onClick: {
+//                     openLink: {
+//                       url: "https://ai-wellness-p9n5.onrender.com/",
+//                     },
+//                   },
+//                 },
+//               ],
+//             },
+//           },
+//         ],
+//       },
+//     ],
+//   };
+
+//   res.json({
+//     actions: [
+//       {
+//         navigations: [
+//           {
+//             pushCard: card,
+//           },
+//         ],
+//       },
+//     ],
+//   });
+// });
 
 // Google Add-on trigger handler
 // app.get("/calendar-add-on/homepage", (req, res) => {
