@@ -47,6 +47,149 @@ app.get("/health", async (req: Request, res: Response) => {
 app.use("/auth", authRoutes);
 app.use("/calendar", calendarRoutes);
 
+// Google Add-on trigger handler
+app.all("/calendar-add-on/homepage", (req, res) => {
+  // Respond with Google Card JSON for homepage trigger
+
+  res.json({
+    action: {
+      navigations: [
+        {
+          pushCard: {
+            sections: [
+              {
+                header: "AI Wellness",
+                widgets: [
+                  {
+                    decoratedText: {
+                      text: "Your personal energy-based calendar helper",
+                      wrapText: true,
+                    },
+                  },
+                  {
+                    decoratedText: {
+                      text: "AI Wellness",
+                      icon: {
+                        iconUrl:
+                          "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+                      },
+                    },
+                  },
+                  {
+                    buttonList: {
+                      buttons: [
+                        {
+                          text: "Get Started",
+                          color: {
+                            red: 0.21,
+                            green: 0.83,
+                            blue: 0.6,
+                            alpha: 1,
+                          },
+                          onClick: {
+                            openLink: {
+                              url: "https://ai-wellness-p9n5.onrender.com",
+                            },
+                          },
+                        },
+                        {
+                          text: "Skip Setup",
+                          color: {
+                            red: 0.23,
+                            green: 0.51,
+                            blue: 0.96,
+                            alpha: 1,
+                          },
+                          onClick: {
+                            action: {
+                              functionName:
+                                "https://ai-wellness-backend-pbxw.onrender.com/calendar-add-on/handleSkipSetup",
+                              parameters: [{ key: "action", value: "skip" }],
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  });
+});
+
+app.all("/calendar-add-on/handleSkipSetup", (req, res) => {
+  res.json({
+    action: {
+      navigations: [
+        {
+          pushCard: {
+            sections: [
+              {
+                header: "Schedule Events",
+                widgets: [
+                  {
+                    decoratedText: {
+                      text: "Setup has been skipped. Welcome to the schedule events view!",
+                      wrapText: true,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  });
+});
+
+// // Google Add-on trigger handler....
+// app.all("/calendar-add-on/homepage", (req, res) => {
+//   // Respond with Google Card JSON for homepage trigger....
+
+//   res.json({
+//     action: {
+//       navigations: [
+//         {
+//           pushCard: {
+//             sections: [
+//               {
+//                 header: "AI Wellness",
+//                 widgets: [
+//                   {
+//                     decoratedText: {
+//                       text: "Your personal energy-based calendar helper",
+//                       wrapText: true,
+//                     },
+//                   },
+//                   {
+//                     decoratedText: {
+//                       text: "AI Wellness Calendar Assistan",
+//                     },
+//                   },
+//                   {
+//                     decoratedText: {
+//                       text: "AI Wellness",
+//                       icon: {
+//                         iconUrl:
+//                           "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+//                       },
+//                     },
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         },
+//       ],
+//     },
+//   });
+// });
+
 // app.all("/calendar-add-on/homepage", (req, res) => {
 //   const card = {
 //     header: {
@@ -80,49 +223,6 @@ app.use("/calendar", calendarRoutes);
 //     },
 //   });
 // });
-
-// Google Add-on trigger handler
-app.all("/calendar-add-on/homepage", (req, res) => {
-  // Respond with Google Card JSON for homepage trigger
-
-  res.json({
-    action: {
-      navigations: [
-        {
-          pushCard: {
-            sections: [
-              {
-                header: "AI Wellness",
-                widgets: [
-                  {
-                    decoratedText: {
-                      text: "Your personal energy-based calendar helper",
-                      wrapText: true,
-                    },
-                  },
-                  {
-                    decoratedText: {
-                      text: "AI Wellness Calendar Assistan",
-                    },
-                  },
-                  {
-                    decoratedText: {
-                      text: "AI Wellness",
-                      icon: {
-                        iconUrl:
-                          "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
-                      },
-                    },
-                  },
-                ],
-              },
-            ],
-          },
-        },
-      ],
-    },
-  });
-});
 
 // // Google Add-on trigger handler
 // app.all("/calendar-add-on/homepage", (req, res) => {
