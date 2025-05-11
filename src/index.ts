@@ -109,6 +109,33 @@ app.all("/calendar-add-on/homepage", (req, res) => {
                       ],
                     },
                   },
+                  {
+                    textInput: {
+                      name: "event_title",
+                      label: "Event Title",
+                      hintText: "E.g. Make breakfast",
+                    },
+                  },
+                  {
+                    buttonList: {
+                      buttons: [
+                        {
+                          text: "Schedule Event",
+                          color: {
+                            red: 0.21,
+                            green: 0.83,
+                            blue: 0.6,
+                            alpha: 1,
+                          },
+                          onClick: {
+                            openLink: {
+                              url: "https://ai-wellness-p9n5.onrender.com",
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
                 ],
               },
             ],
